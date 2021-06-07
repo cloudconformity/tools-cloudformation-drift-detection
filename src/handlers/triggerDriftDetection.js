@@ -5,7 +5,7 @@ const logger = require("../utils/logger");
 const triggerDriftDetection = async event => {
 	logger.info("Received event:", event);
 	const regions = await getRegions(event.regions);
-	const { driftDetectionMinAgeHours, batchSize } = event;
+	const { driftDetectionMinAgeHours, excludedStackIds = "", batchSize } = event;
 	logger.info("Will detect stale drifted in regions:", regions);
 
 	await Promise.all(
@@ -14,6 +14,10 @@ const triggerDriftDetection = async event => {
 				const staleStacks = await getStaleStacks({
 					region,
 					driftDetectionMinAgeHours: Number(driftDetectionMinAgeHours),
+					excludedStackIds: excludedStackIds
+						.split(",")
+						.map(excludedStackId => excludedStackId.trim())
+						.filter(excludedStackId => excludedStackId),
 					maxCount: Number(batchSize)
 				});
 				logger.info(`${region}: Found ${staleStacks.length} stacks with stale drift detection`);

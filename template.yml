@@ -11,7 +11,7 @@ Parameters:
     Type: String
     Default: all
     Description: >-
-      Comma separated list of regions to scan for CloudFormation stacks, e.g. ap-southeast-2,us-west-2.
+      Comma-separated list of regions to scan for CloudFormation stacks, e.g. ap-southeast-2,us-west-2.
       "all" means scan all available regions.
   DriftDetectionMinAgeHours:
     Type: Number
@@ -38,6 +38,12 @@ Parameters:
       with ScanFrequencyHours based on the number of Stacks you have.
     MinValue: 1
     MaxValue: 24
+  ExcludedStackArns:
+    Type: String
+    Default: ""
+    Description: >-
+      Comma-separated list of CloudFormation Stack ARNs to be excluded by the system. Each item can be a regular expression
+      without the comma character.
 
 Resources:
   TriggerCloudFormationDriftDetection:
@@ -59,7 +65,8 @@ Resources:
               {
                 "regions": "${Regions}",
                 "driftDetectionMinAgeHours": "${DriftDetectionMinAgeHours}",
-                "batchSize": "${DriftDetectionBatchSize}"
+                "batchSize": "${DriftDetectionBatchSize}",
+                "excludedStackIds": "${ExcludedStackArns}"
               }
       Policies:
         - ReadOnlyAccess
