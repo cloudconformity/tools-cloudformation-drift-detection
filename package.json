@@ -4,7 +4,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"devDependencies": {
-		"aws-sdk": "^2.922.0",
+		"aws-sdk": "^2.924.0",
 		"eslint": "^7.28.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-jest": "^24.3.6",
@@ -16,18 +16,18 @@
 		"prettier": "^2.3.1"
 	},
 	"scripts": {
-    "check": "npm run lint && npm run coverage",
+		"check": "npm run lint && npm run coverage",
 		"test": "jest",
 		"coverage": "jest --coverage --silent",
 		"lint": "eslint '**/*.js'",
 		"lint:fix": "npm run lint -- --fix"
 	},
-  "engines": {
-    "node": ">=14.16.1"
-  },
-  "files": [
-    "package.json",
-    "src",
-    "node_modules"
-  ]
+	"engines": {
+		"node": ">=14.16.1"
+	},
+	"files": [
+		"package.json",
+		"src",
+		"node_modules"
+	]
 }
