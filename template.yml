@@ -1,6 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
-  cloudformation-drift-detection
   Tools to regularly trigger drift detection on AWS CloudFormation Stacks
 
 Transform:
