@@ -86,9 +86,9 @@ From 1 hour to 24 hours.
 #### DriftDetectionBatchSize
 
 - Type: Number
-- Default: 20
-- MinValue: 1
-- MaxValue: 200
+- Default: `20`
+- MinValue: `1`
+- MaxValue: `200`
 
 Maximum number of drift detections to be triggered per region by the system in every scan. Adjust this value in combination
 with ScanFrequencyHours based on the number of Stacks you have.
