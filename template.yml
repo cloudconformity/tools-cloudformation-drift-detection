@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  Tools to regularly trigger drift detection on AWS CloudFormation Stacks
+
+Transform:
+  - AWS::Serverless-2016-10-31
+
+Parameters:
+  Regions:
+    Type: String
+    Default: all
+    Description: >-
+      Comma-separated list of regions to scan for CloudFormation stacks, e.g. ap-southeast-2,us-west-2.
+      "all" means scan all available regions.
+  DriftDetectionMinAgeHours:
+    Type: Number
+    Default: 24
+    Description: >-
+      The minimum age of a drift detection result in hours to be marked for drift detection. The system will trigger a new
+      drift detection after this time has passed from the previously completed drift detection. From 24 hours to
+      168 hours (1 week).
+    MinValue: 24
+    MaxValue: 168
+  ScanFrequencyHours:
+    Type: Number
+    Default: 1
+    Description: >-
+      The number of hours between scans. Each scan triggers as many drift detections in a region as DriftDetectionBatchSize.
+      From 1 hour to 24 hours.
+    MinValue: 1
+    MaxValue: 24
+  DriftDetectionBatchSize:
+    Type: Number
+    Default: 20
+    Description: >-
+      Maximum number of drift detections to be triggered per region by the system in every scan. Adjust this value in combination
+      with ScanFrequencyHours based on the number of Stacks you have.
+    MinValue: 1
+    MaxValue: 200
+  ExcludedStackArns:
+    Type: String
+    Default: ""
+    Description: >-
+      Comma-separated list of CloudFormation Stack ARNs to be excluded by the system. Each item can be a regular expression
+      without the comma character or a full CloudFormation Stack ARN.
+
+Resources:
+  TriggerCloudFormationDriftDetection:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: triggerCloudFormationDriftDetection
+      Description: A Lambda function that triggers CloudFormation drift detection on all eligible Stacks.
+      Runtime: nodejs14.x
+      Handler: src/handlers/triggerDriftDetection.handler
+      Events:
+        CloudWatchEvent:
+          Type: Schedule
+          Name: CloudFormationDriftDetectionSchedule
+          Properties:
+            Schedule: !Sub "cron(0 */${ScanFrequencyHours} * * ? *)"
+            Description: CloudFormation drift detection trigger Lambda function execution frequency
+            Enabled: True
+            Input: !Sub >-
+              {
+                "regions": "${Regions}",
+                "driftDetectionMinAgeHours": "${DriftDetectionMinAgeHours}",
+                "batchSize": "${DriftDetectionBatchSize}",
+                "excludedStackIds": "${ExcludedStackArns}"
+              }
+      Policies:
+        - ReadOnlyAccess
+      MemorySize: 256
+      Timeout: 300
+      Tags:
+        Name: triggerCloudFormationDriftDetection

@@ -1,0 +1,6 @@
+{
+	"regions": "ap-southeast-2",
+	"driftDetectionMinAgeHours": 0.1,
+	"batchSize": 20,
+	"excludedStackIds": ".*drift-detection.*"
+}
