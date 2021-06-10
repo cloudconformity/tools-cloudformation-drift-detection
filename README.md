@@ -111,7 +111,7 @@ without the comma character, or a full CloudFormation Stack ARN.
 For your convenience, the latest prebuilt version of this application can be launched in your AWS account using the following
 AWS CloudFormation quick-create link. Click the following button to start:
 
-[![Launch Stack](docs/images/launch-stack.svg)](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https%3A%2F%2Fcloudconformity.s3-us-west-2.amazonaws.com%2Fcloudformation-drift-detection%2Ftemplate.yaml&stackName=cloudformation-drift-detection)
+[![Launch Stack](docs/images/launch-stack.svg)](https://us-west-2.console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?templateURL=https%3A%2F%2Fcloudconformity.s3-us-west-2.amazonaws.com%2Fcloudformation-drift-detection%2Ftemplate.yaml&stackName=cloudformation-drift-detection)
 
 You can use [CloudFormation StackSets](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack-set.html)
 to deploy this application to multiple accounts. You can review [the CloudFormation template for this application](https://cloudconformity.s3-us-west-2.amazonaws.com/cloudformation-drift-detection/template.yaml) before using it.
