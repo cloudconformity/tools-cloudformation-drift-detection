@@ -45,8 +45,8 @@ frequencies (no more than every four hours) and increase it gradually over time.
 ## How it works
 
 This application creates an EventBridge scheduled rule that triggers a Lambda function every few hours.
-In each invocation, the Lambda function selects a batch of CloudFormation stacks that either do not have drift detection
-result, or the result is too old. These batches are selected in each configured region.
+In each invocation, the Lambda function selects a batch of CloudFormation stacks that either do not have drift detection 
+status, or the status is not up to date. These batches are selected in each configured region.
 
 The Lambda function then triggers drift detection for each item in regional batches.
 
