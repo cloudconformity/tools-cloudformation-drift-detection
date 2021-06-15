@@ -1,9 +1,28 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: >-
-  Tools to regularly trigger drift detection on AWS CloudFormation Stacks
-
 Transform:
   - AWS::Serverless-2016-10-31
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: tools-cloudformation-drift-detection
+    Description: >-
+      Tools to regularly trigger drift detection on AWS CloudFormation Stacks
+    Author: Trend Micro
+    SpdxLicenseId: MIT
+    LicenseUrl: LICENSE
+    ReadmeUrl: README.md
+    Labels:
+      [
+        trendmicro,
+        cloudone,
+        cloudconformity,
+        conformity,
+        cloudformation,
+        securityautomation,
+      ]
+    HomePageUrl: https://github.com/cloudconformity/tools-cloudformation-drift-detection
+    SemanticVersion: 1.0.0
+    SourceCodeUrl: https://github.com/cloudconformity/tools-cloudformation-drift-detection
 
 Parameters:
   Regions:
