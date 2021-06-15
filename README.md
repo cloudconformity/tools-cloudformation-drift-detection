@@ -106,17 +106,16 @@ without the comma character, or a full CloudFormation Stack ARN.
 
 ## Deployment
 
-### Deploy using Quick-create link
+### Deploy from the AWS Lambda Console
 
-For your convenience, the latest prebuilt version of this application can be launched in your AWS account using the following
-AWS CloudFormation quick-create link. Click the following button to start:
+For your convenience, the latest prebuilt version of this application can be launched in your AWS account by visiting from the AWS Serverless Application Repository.
 
-[![Launch Stack](docs/images/launch-stack.svg)](https://us-west-2.console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?templateURL=https%3A%2F%2Fcloudconformity.s3-us-west-2.amazonaws.com%2Fcloudformation-drift-detection%2Ftemplate.yaml&stackName=cloudformation-drift-detection)
+1. Visit [the app's page on the AWS Lambda Console](https://console.aws.amazon.com/lambda/home?#/create/app?applicationId=arn:aws:serverlessrepo:us-west-2:717210094962:applications/cloudformation-drift-detection). 
+2. Fill in the required parameters.
+3. Select the `I acknowledge that this app creates custom IAM roles.` checkbox.
+4. Select `Deploy`.
 
-You can use [CloudFormation StackSets](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack-set.html)
-to deploy this application to multiple accounts. You can review [the CloudFormation template for this application](https://cloudconformity.s3-us-west-2.amazonaws.com/cloudformation-drift-detection/template.yaml) before using it.
-
-### Deploy using AWS SAM
+### Deploy using AWS SAM CLI
 
 The AWS SAM CLI is an extension of the AWS CLI that adds functionality for building and testing Lambda applications. It uses Docker to run your functions in an Amazon Linux environment that matches Lambda. It can also emulate your application's build environment and API.
 
