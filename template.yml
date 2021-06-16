@@ -43,7 +43,29 @@ Parameters:
     Description: >-
       Comma-separated list of CloudFormation Stack ARNs to be excluded by the system. Each item can be a regular expression
       without the comma character or a full CloudFormation Stack ARN.
-
+  LogRetentionDays:
+    Type: String
+    Default: 1
+    Description: >-
+      Retention in days to keep the Lambda log files in Cloudwatch Logs
+    AllowedValues:
+      - 1
+      - 3
+      - 5
+      - 7
+      - 14
+      - 30
+      - 60
+      - 90
+      - 120
+      - 150
+      - 180
+      - 365
+      - 400
+      - 545
+      - 731
+      - 1827
+      - 3653
 Resources:
   TriggerCloudFormationDriftDetection:
     Type: AWS::Serverless::Function
@@ -73,3 +95,9 @@ Resources:
       Timeout: 300
       Tags:
         Name: triggerCloudFormationDriftDetection
+
+  TriggerCloudFormationDriftDetectionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${TriggerCloudFormationDriftDetection}"
+      RetentionInDays: !Ref LogRetentionDays
