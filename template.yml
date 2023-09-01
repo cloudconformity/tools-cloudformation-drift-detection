@@ -105,7 +105,6 @@ Resources:
   TriggerCloudFormationDriftDetection:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: triggerCloudFormationDriftDetection
       Description: A Lambda function that triggers CloudFormation drift detection on all eligible Stacks.
       Runtime: nodejs14.x
       Handler: src/handlers/triggerDriftDetection.handler
