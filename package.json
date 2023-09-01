@@ -4,7 +4,6 @@
 	"version": "0.0.1",
 	"private": true,
 	"devDependencies": {
-		"aws-sdk": "^2.924.0",
 		"eslint": "^7.28.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-jest": "^24.3.6",
@@ -23,11 +22,14 @@
 		"lint:fix": "npm run lint -- --fix"
 	},
 	"engines": {
-		"node": ">=14.16.1"
+		"node": ">=18.0.0"
 	},
 	"files": [
 		"package.json",
 		"src",
 		"node_modules"
-	]
+	],
+	"dependencies": {
+		"aws-sdk": "^2.924.0"
+	}
 }
