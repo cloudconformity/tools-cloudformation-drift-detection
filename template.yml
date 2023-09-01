@@ -67,6 +67,41 @@ Parameters:
       - 1827
       - 3653
 Resources:
+  TriggerCloudFormationDriftDetectionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Action: sts:AssumeRole
+          Effect: Allow
+          Principal: {Service: lambda.amazonaws.com}
+
+  # the policy is a seperate resource, to break a circular dependency with the loggroup
+  TriggerCloudFormationDriftDetectionPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      Roles: [!Ref TriggerCloudFormationDriftDetectionRole]
+      PolicyName: TriggerCloudFormationDriftDetectionPolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: TriggerDetection
+            Effect: Allow
+            Action:
+              - ec2:describeRegions
+              - cloudformation:ListStacks
+              - cloudformation:DescribeStacks
+              - cloudformation:DetectStackDrift
+              - cloudformation:DetectStackResourceDrift
+            Resource: "*"
+          - Sid: WriteLogs
+            Effect: Allow
+            Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !GetAtt TriggerCloudFormationDriftDetectionLogGroup.Arn
+
   TriggerCloudFormationDriftDetection:
     Type: AWS::Serverless::Function
     Properties:
@@ -89,8 +124,7 @@ Resources:
                 "batchSize": "${DriftDetectionBatchSize}",
                 "excludedStackIds": "${ExcludedStackArns}"
               }
-      Policies:
-        - ReadOnlyAccess
+      Role: !GetAtt TriggerCloudFormationDriftDetectionRole.Arn
       MemorySize: 256
       Timeout: 300
       Tags:
