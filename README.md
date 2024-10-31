@@ -1,5 +1,11 @@
 # CloudFormation drift detection
 
+> [!WARNING]  
+> This repository is no longer maintained.
+>
+> Check out AWS blog post: [Implementing an Alarm to Automatically Detect Drift in AWS CloudFormation Stacks](https://aws.amazon.com/blogs/mt/implementing-an-alarm-to-automatically-detect-drift-in-aws-cloudformation-stacks/) for a better way to achieve this using **AWS Config** and **Amazon EventBridge**.
+
+
 - [CloudFormation drift detection](#cloudformation-drift-detection)
   - [Introduction](#introduction)
   - [Purpose](#purpose)
